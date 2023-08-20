@@ -57,7 +57,7 @@ def addEmployee(employees):# time complexity: O(1) fixed time for adding 1 emplo
 
 
 #display all employees in cecreasing order based on timestamp
-def displayAll(employees):
+def displayAll(employees):#time complexity: sorted() has a time complexity of O(n*log(n)) and the for loop had O(n) which results in O(n * log(n) + n)
     res = sorted(employees.items(), key = lambda x: x[1]['timeStamp'], reverse=True)#sorted method: https://www.geeksforgeeks.org/python-sort-nested-dictionary-by-key/
 
     #reversed: https://www.programiz.com/python-programming/methods/built-in/sorted#:~:text=The%20sorted()%20function%20accepts,iterable%20in%20the%20descending%20order.
