@@ -151,3 +151,30 @@ def adminMenu(): #time complexity O(1), although we are intentially repeating a 
       break	
     else:	
       print("Please enter a correct option from the menu")
+
+
+#log in to check credentials for admin and employee
+def logIn(employees): #time complexity: O(1), fixed number of attempts(5)
+  attempts=5
+  while attempts>0:
+    if attempts==5:
+      userName=input("Enter Username: ")
+      password=input("Enter Password: ")
+    else:
+      userName=input(f"Enter Username: ({attempts} attempts remaining)")
+      password=input(f"Enter Password: ({attempts} attempts remaining)")
+    if userName=="admin" and password=="admin123123" :
+      adminMenu()
+    for key, value in employees.items():
+      if value['username'] == userName:
+        userMenu(key, value)
+    else:
+      print("incorrect Username and/or Password")
+      attempts-=1
+  print("Maximum ammount of attempts reached, please try again later")
+
+
+
+  
+readEmployees(employees)
+logIn(employees)
