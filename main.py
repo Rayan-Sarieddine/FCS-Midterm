@@ -51,3 +51,18 @@ def addEmployee(employees):# time complexity: O(1) fixed time for adding 1 emplo
        
     }
     print("Successfully added!")
+
+#def displayAll(employees):
+
+
+#change the salary of an employee that exists
+def salaryChange(employees): #time complexity: O(1) considering we are changing the salary of 1 employee at a time and the dictionary look has also a fixed time complexity of O(1)
+  id=input("Enter employee ID: ")
+  if id in employees:
+    salary=int(input("Enter new salary: "))
+    while salary<0:
+      salary = int(input("Please enter correct salary: "))
+    employees[id]["salary"]=salary
+    print("The salary is changed")
+  else:
+    print("Employee not found")
