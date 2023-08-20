@@ -120,3 +120,34 @@ def userMenu(key, value): #time complexity O(1), although we are intentially rep
           file.write(message)
     else:
       print("Please enter a correct option from the menu")
+
+# admin menu
+def adminMenu(): #time complexity O(1), although we are intentially repeating a branch of the function( showing the menu of choices)
+  print("Menu:")
+  print("1. Display Statistics")
+  print("2. Add an Employee")
+  print("3. Display all Employees")
+  print("4. Change Employee’s Salary")
+  print("5. Remove Employee")
+  print("6. Raise Employee’s Salary")
+  print("7. Exit")
+  while True:
+    print(employees)
+    choice = input("Enter choice: ")	
+    if choice == '1':	
+      print(statistics(employees))	
+    elif choice == '2':	
+      addEmployee(employees)	
+    elif choice == '3':	
+      displayAll(employees)	
+    elif choice == '4':	
+      salaryChange(employees)	
+    elif choice == '5':	
+      removeEmployee(employees)	
+    elif choice == '6':	
+      raiseSalary(employees)	
+    elif choice == '7':	
+      exitNow(employees)	
+      break	
+    else:	
+      print("Please enter a correct option from the menu")
