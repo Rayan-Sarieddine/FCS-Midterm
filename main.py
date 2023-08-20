@@ -14,6 +14,7 @@ def readEmployees(employees):#time complexity=O(n) where n= number of lines in t
         }
           
 
+
 #display number of male and female employees registered in the system
 def statistics(employees):# time complexity: O(n) where n= number of employees (i.e number of lines in the users file)
     countMale=0
@@ -24,6 +25,7 @@ def statistics(employees):# time complexity: O(n) where n= number of employees (
         elif emp['gender'] == 'female':
            countFemale+=1
     return f"Female Employees: {countFemale} \nMale Employees: {countMale} "
+
 
 
 #add a new employee to the empolyees dictionary
@@ -52,6 +54,8 @@ def addEmployee(employees):# time complexity: O(1) fixed time for adding 1 emplo
     }
     print("Successfully added!")
 
+
+
 #display all employees in cecreasing order based on timestamp
 def displayAll(employees):
     res = sorted(employees.items(), key = lambda x: x[1]['timeStamp'], reverse=True)#sorted method: https://www.geeksforgeeks.org/python-sort-nested-dictionary-by-key/
@@ -59,6 +63,8 @@ def displayAll(employees):
     #reversed: https://www.programiz.com/python-programming/methods/built-in/sorted#:~:text=The%20sorted()%20function%20accepts,iterable%20in%20the%20descending%20order.
     for key, value in res:
        print(f"{key}, {employees[key]['username']},  {employees[key]['timeStamp']}, {employees[key]   ['gender']}, {employees[key]['salary']}\n")
+
+
 
 #change the salary of an employee that exists
 def salaryChange(employees): #time complexity: O(1) considering we are changing the salary of 1 employee at a time and the dictionary look has also a fixed time complexity of O(1)
@@ -73,6 +79,8 @@ def salaryChange(employees): #time complexity: O(1) considering we are changing 
     print("Employee not found")
 
 
+
+
 #remove an employee from the employees dictionary
 def removeEmployee(employees): #time complexity: O(1) considering we are removing 1 employee at a time and the dictionary look has also a fixed time complexity of O(1)
   id=input("Enter employee ID: ")
@@ -81,6 +89,8 @@ def removeEmployee(employees): #time complexity: O(1) considering we are removin
     print("Employee has been deleted")
   else:
      print("Employee not found")
+
+
 
 #increase the salary of an existing employee by a specific perventage
 def raiseSalary(employees): #time complexity: O(1) considering we are raising the salary of 1 employee at a time and the dictionary look has also a fixed time complexity of O(1)
@@ -95,11 +105,15 @@ def raiseSalary(employees): #time complexity: O(1) considering we are raising th
   else:
     print("Employee not found")
 
+
+
 #save the changes made by admit after exit into the users file
 def exitNow(employees):# time complexity: O(n) where n is the number of employees
   with open("users.txt", "w") as file:#https://www.w3schools.com/python/python_file_write.asp
     for key in employees:
         file.write(f"{key}, {employees[key]['username']},  {employees[key]['timeStamp']}, {employees[key]   ['gender']}, {employees[key]['salary']}\n")
+
+
 
 
 #Normal user(employee) menu
@@ -126,6 +140,8 @@ def userMenu(key, value): #time complexity O(1), although we are intentially rep
     else:
       print("Please enter a correct option from the menu")
 
+
+
 # admin menu
 def adminMenu(): #time complexity O(1), although we are intentially repeating a branch of the function( showing the menu of choices)
   print("Menu:")
@@ -137,7 +153,6 @@ def adminMenu(): #time complexity O(1), although we are intentially repeating a 
   print("6. Raise Employee’s Salary")
   print("7. Exit")
   while True:
-    print(employees)
     choice = input("Enter choice: ")	
     if choice == '1':	
       print(statistics(employees))	
@@ -158,25 +173,30 @@ def adminMenu(): #time complexity O(1), although we are intentially repeating a 
       print("Please enter a correct option from the menu")
 
 
+
+
 #log in to check credentials for admin and employee
 def logIn(employees): #time complexity: O(1), fixed number of attempts(5)
-  attempts=5
-  while attempts>0:
-    if attempts==5:
-      userName=input("Enter Username: ")
-      password=input("Enter Password: ")
-    else:
-      userName=input(f"Enter Username: ({attempts} attempts remaining)")
-      password=input(f"Enter Password: ({attempts} attempts remaining)")
-    if userName=="admin" and password=="admin123123" :
-      adminMenu()
-    for key, value in employees.items():
-      if value['username'] == userName:
-        userMenu(key, value)
-    else:
-      print("incorrect Username and/or Password")
-      attempts-=1
-  print("Maximum ammount of attempts reached, please try again later")
+    attempts=5
+    while attempts>0:
+        if attempts==5:
+            userName=input("Enter Username: ")
+            password=input("Enter Password: ")
+        else:
+            userName=input(f"Enter Username: ({attempts} attempts remaining)")
+            password=input(f"Enter Password: ({attempts} attempts remaining)")
+        if userName=="admin" and password=="admin123123":
+            adminMenu()
+            break
+        for key, value in employees.items():
+            if value['username'] == userName:
+                userMenu(key, value)
+                return
+    
+        print("incorrect Username and/or Password")
+        attempts-=1
+    if attempts==0:
+       print("Maximum ammount of attempts reached, please try again later")
 
 
 
