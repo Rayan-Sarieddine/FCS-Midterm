@@ -112,6 +112,7 @@ def exitNow(employees):# time complexity: O(n) where n is the number of employee
   with open("users.txt", "w") as file:#https://www.w3schools.com/python/python_file_write.asp
     for key in employees:
         file.write(f"{key}, {employees[key]['username']},  {employees[key]['timeStamp']}, {employees[key]   ['gender']}, {employees[key]['salary']}\n")
+  print(f"Goodbye Admin!")
 
 
 
