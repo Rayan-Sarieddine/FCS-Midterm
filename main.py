@@ -95,3 +95,28 @@ def exitNow(employees):# time complexity: O(n) where n is the number of employee
   with open("users.txt", "w") as file:#https://www.w3schools.com/python/python_file_write.asp
     for key in employees:
         file.write(f"{key}, {employees[key]['username']},  {employees[key]['timeStamp']}, {employees[key]   ['gender']}, {employees[key]['salary']}\n")
+
+
+#Normal user(employee) menu
+def userMenu(key, value): #time complexity O(1), although we are intentially repeating a branch of the function( showing the menu of choices)
+  enterTime=datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") #https://www.programiz.com/python-programming/datetime/current-datetime#google_vignette
+  if  value["gender"]=="male":
+      greeting="Mr."
+  else:
+     greeting="Ms."
+  print(f"Hi {greeting} {value['username']}")
+  while True:
+    print("Menu:")
+    print("1. Check my Salary")
+    print("2. Exit")
+    choice=input("Enter choice: ")
+    if choice == "1":
+      print(f"your salary is {value['salary']}")
+    elif choice=="2":
+      leaveTime=datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+      message=f"Employee id: {key} of username: {value['username']} logged in at {enterTime} and logged out  at {leaveTime}\n"
+      filename=key+".txt"
+      with open(filename, "w") as file:
+          file.write(message)
+    else:
+      print("Please enter a correct option from the menu")
