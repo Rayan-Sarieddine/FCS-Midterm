@@ -24,3 +24,30 @@ def statistics(employees):# time complexity: O(n) where n= number of employees (
         elif emp['gender'] == 'female':
            countFemale+=1
     return f"there are {countFemale} female employees and {countMale} male employees"
+
+
+#add a new employee to the empolyees dictionary
+def addEmployee(employees):# time complexity: O(1) fixed time for adding 1 employee at a time
+    username = input("Enter Username: ")
+    gender = input("Enter Gender (male/female): ")
+    while gender!="male" and gender!="female":
+       gender = input("please enter correct gender (male/female): ")
+    salary = int(input("Enter salary: "))
+    while salary<0:
+       salary = int(input("Please enter correct salary: "))
+    length=len(employees)
+    if length<9:
+       id="emp00"+str(length+1)
+    elif length>8 and length<99:
+       id="emp0"+str(length+1)
+    else:
+       id="emp"+str(length+1)
+    today = datetime.datetime.today().strftime("%Y%m%d")
+    employees[id]={
+       "username":username,
+            "timeStamp":int(today),
+            "gender":gender,
+            "salary":int(salary)
+       
+    }
+    print("Successfully added!")
