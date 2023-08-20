@@ -66,3 +66,13 @@ def salaryChange(employees): #time complexity: O(1) considering we are changing 
     print("The salary is changed")
   else:
     print("Employee not found")
+
+
+#remove an employee from the employees dictionary
+def removeEmployee(employees): #time complexity: O(1) considering we are removing 1 employee at a time and the dictionary look has also a fixed time complexity of O(1)
+  id=input("Enter employee ID: ")
+  if id in employees:
+    del employees[id]
+    print("Employee has been deleted")
+  else:
+     print("Employee not found")
