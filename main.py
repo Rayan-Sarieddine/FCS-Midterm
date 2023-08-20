@@ -20,10 +20,10 @@ def statistics(employees):# time complexity: O(n) where n= number of employees (
     countFemale=0
     for emp in employees.values():
         if emp['gender'] == 'male':
-            countMale=+1
+            countMale+=1
         elif emp['gender'] == 'female':
            countFemale+=1
-    return f"there are {countFemale} female employees and {countMale} male employees"
+    return f"Female Employees: {countFemale} \nMale Employees: {countMale} "
 
 
 #add a new employee to the empolyees dictionary
@@ -52,8 +52,13 @@ def addEmployee(employees):# time complexity: O(1) fixed time for adding 1 emplo
     }
     print("Successfully added!")
 
-#def displayAll(employees):
+#display all employees in cecreasing order based on timestamp
+def displayAll(employees):
+    res = sorted(employees.items(), key = lambda x: x[1]['timeStamp'], reverse=True)#sorted method: https://www.geeksforgeeks.org/python-sort-nested-dictionary-by-key/
 
+    #reversed: https://www.programiz.com/python-programming/methods/built-in/sorted#:~:text=The%20sorted()%20function%20accepts,iterable%20in%20the%20descending%20order.
+    for key, value in res:
+       print(f"{key}, {employees[key]['username']},  {employees[key]['timeStamp']}, {employees[key]   ['gender']}, {employees[key]['salary']}\n")
 
 #change the salary of an employee that exists
 def salaryChange(employees): #time complexity: O(1) considering we are changing the salary of 1 employee at a time and the dictionary look has also a fixed time complexity of O(1)
@@ -114,7 +119,7 @@ def userMenu(key, value): #time complexity O(1), although we are intentially rep
       print(f"your salary is {value['salary']}")
     elif choice=="2":
       leaveTime=datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-      message=f"Employee id: {key} of username: {value['username']} logged in at {enterTime} and logged out  at {leaveTime}\n"
+      message=f"Employee id: {key}, of username: {value['username']}, logged in at {enterTime}, and logged out  at {leaveTime}\n"
       filename=key+".txt"
       with open(filename, "w") as file:
           file.write(message)
@@ -175,6 +180,6 @@ def logIn(employees): #time complexity: O(1), fixed number of attempts(5)
 
 
 
-  
+
 readEmployees(employees)
 logIn(employees)
