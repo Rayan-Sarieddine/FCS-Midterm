@@ -76,3 +76,16 @@ def removeEmployee(employees): #time complexity: O(1) considering we are removin
     print("Employee has been deleted")
   else:
      print("Employee not found")
+
+#increase the salary of an existing employee by a specific perventage
+def raiseSalary(employees): #time complexity: O(1) considering we are raising the salary of 1 employee at a time and the dictionary look has also a fixed time complexity of O(1)
+  id=input("Enter employee ID: ")
+  if id in employees:
+    percent=float(input("Enter raise percentage: "))/100
+    while percent<=0:
+      percent= float(input("Please enter correct raise percentage: "))/100
+    increase= employees[id]["salary"]*percent
+    employees[id]["salary"]+=round(increase,2)
+    print(f"{employees[id]['username']} Salary was increased by {percent*100} %")
+  else:
+    print("Employee not found")
