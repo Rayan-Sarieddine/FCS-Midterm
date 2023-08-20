@@ -2,7 +2,7 @@ import datetime
 employees={}
 
 #read employees line by line from users.txt file
-def readEmployees(employees):#time complexity=O(n) where n= number of lines in the users file
+def readEmployees(employees):#time complexity=O(n) where n= number of lines in the users file( number of employees)
     with open("users.txt", "r") as f: #https://www.w3schools.com/python/python_file_open.asp
       for x in f:
           line=x.split(",")
@@ -10,7 +10,7 @@ def readEmployees(employees):#time complexity=O(n) where n= number of lines in t
           "username":line[1].strip().lower(),
           "timeStamp":int(line[2].strip()),
           "gender":line[3].strip().lower(),
-          "salary":float(line[4].strip())
+          "salary":int(line[4].strip())
         }
           
 
@@ -52,7 +52,7 @@ def addEmployee(employees):# time complexity: O(1) fixed time for adding 1 emplo
             "salary":int(salary)
        
     }
-    print("Successfully added!")
+    print(f"{username} was successfully added!")
 
 
 
@@ -61,6 +61,7 @@ def displayAll(employees):
     res = sorted(employees.items(), key = lambda x: x[1]['timeStamp'], reverse=True)#sorted method: https://www.geeksforgeeks.org/python-sort-nested-dictionary-by-key/
 
     #reversed: https://www.programiz.com/python-programming/methods/built-in/sorted#:~:text=The%20sorted()%20function%20accepts,iterable%20in%20the%20descending%20order.
+    print("Current employees: \n")
     for key, value in res:
        print(f"{key}, {employees[key]['username']},  {employees[key]['timeStamp']}, {employees[key]   ['gender']}, {employees[key]['salary']}\n")
 
@@ -73,10 +74,11 @@ def salaryChange(employees): #time complexity: O(1) considering we are changing 
     salary=int(input("Enter new salary: "))
     while salary<0:
       salary = int(input("Please enter correct salary: "))
+    oldSalary=employees[id]["salary"]
     employees[id]["salary"]=salary
-    print("The salary is changed")
+    print(f"The salary is changed from ${oldSalary} to ${salary}.")
   else:
-    print("Employee not found")
+    print("Employee not found!")
 
 
 
@@ -86,9 +88,10 @@ def removeEmployee(employees): #time complexity: O(1) considering we are removin
   id=input("Enter employee ID: ")
   if id in employees:
     del employees[id]
-    print("Employee has been deleted")
+    print(f"Employee of id ({id}) has been deleted.")
+    
   else:
-     print("Employee not found")
+     print("Employee not found!")
 
 
 
@@ -98,12 +101,13 @@ def raiseSalary(employees): #time complexity: O(1) considering we are raising th
   if id in employees:
     percent=float(input("Enter raise percentage: "))/100
     while percent<=0:
-      percent= float(input("Please enter correct raise percentage: "))/100
+      percent= int(input("Please enter correct raise percentage: "))/100
+    oldSalary=employees[id]["salary"]
     increase= employees[id]["salary"]*percent
-    employees[id]["salary"]+=round(increase,2)
-    print(f"{employees[id]['username']} Salary was increased by {percent*100} %")
+    employees[id]["salary"]+=round(increase)
+    print(f"{employees[id]['username']}'s Salary was increased from ${oldSalary} by {int(percent*100)}% to become ${employees[id]['salary']}")
   else:
-    print("Employee not found")
+    print("Employee not found!")
 
 
 
@@ -124,14 +128,14 @@ def userMenu(key, value): #time complexity O(1), although we are intentially rep
       greeting="Mr."
   else:
      greeting="Ms."
-  print(f"Hi {greeting} {value['username']}")
+  print(f"Hi {greeting} {value['username'].capitalize()}!")
   while True:
     print("Menu:")
     print("1. Check my Salary")
     print("2. Exit")
     choice=input("Enter choice: ")
     if choice == "1":
-      print(f"your salary is {value['salary']}")
+      print(f"Your salary is ${value['salary']}.")
     elif choice=="2":
       leaveTime=datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
       message=f"Employee id: {key}, of username: {value['username']}, logged in at {enterTime}, and logged out  at {leaveTime}\n"
@@ -139,7 +143,7 @@ def userMenu(key, value): #time complexity O(1), although we are intentially rep
       with open(filename, "w") as file:
           file.write(message)
     else:
-      print("Please enter a correct option from the menu")
+      print("Please enter a correct option from the menu.")
 
 
 
@@ -171,7 +175,7 @@ def adminMenu(): #time complexity O(1), although we are intentially repeating a 
       exitNow(employees)	
       break	
     else:	
-      print("Please enter a correct option from the menu")
+      print("Please enter a correct option from the menu.")
 
 
 
@@ -179,13 +183,14 @@ def adminMenu(): #time complexity O(1), although we are intentially repeating a 
 #log in to check credentials for admin and employee
 def logIn(employees): #time complexity: O(1), fixed number of attempts(5)
     attempts=5
+    print("Welcome!")
     while attempts>0:
         if attempts==5:
             userName=input("Enter Username: ")
             password=input("Enter Password: ")
         else:
-            userName=input(f"Enter Username: ({attempts} attempts remaining)")
-            password=input(f"Enter Password: ({attempts} attempts remaining)")
+            userName=input(f"Enter Username: ({attempts} attempts remaining): ")
+            password=input(f"Enter Password: ({attempts} attempts remaining): ")
         if userName=="admin" and password=="admin123123":
             adminMenu()
             break
@@ -194,10 +199,10 @@ def logIn(employees): #time complexity: O(1), fixed number of attempts(5)
                 userMenu(key, value)
                 return
     
-        print("incorrect Username and/or Password")
+        print("incorrect Username and/or Password!")
         attempts-=1
     if attempts==0:
-       print("Maximum ammount of attempts reached, please try again later")
+       print("Maximum ammount of attempts reached, please try again later.")
 
 
 
