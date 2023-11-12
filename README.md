@@ -1,6 +1,4 @@
-# FCS-Midterm
 # Employee Database System
-# By Rayan Ziad Sarieddine [FCS 47]
 The following Python script will provide a way of managing an employee database system where there are 2 types of users: Admin and normal users(employees).
 The employees will have the ability to view their salary on this system after logging in.
 The admin has the following controls:
